@@ -11,7 +11,6 @@ class StudentManager:
         cursor.execute("""CREATE TABLE IF NOT EXISTS students(student_id INTEGER PRIMARY KEY AUTOINCREMENT, 
         admission_number INTEGER NOT NULL, name TEXT NOT NULL, 
         grade INTEGER, stream TEXT )""")
-        cursor.execute("""INSERT INTO students(admission_number, name, grade, stream) VALUES (101, 'Rollings Majiwa', 9, 'N')""")
         connection.commit()
         connection.close()
     def create_table2(self):
@@ -70,9 +69,6 @@ def main():
 main()
     
 
-# StudentManager().create_table1()
-# StudentManager().create_table2()
-# StudentManager().create_table3()
-# print("Done")
+
 
 
