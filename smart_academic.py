@@ -10,7 +10,7 @@ class StudentManager:
         cursor = connection.cursor()
         cursor.execute("""CREATE TABLE IF NOT EXISTS students(student_id INTEGER PRIMARY KEY AUTOINCREMENT, 
         admission_number INTEGER NOT NULL, name TEXT NOT NULL, 
-        grade INTEGER NOT NULL, stream TEXT NOT NULL )""")
+        grade INTEGER, stream TEXT )""")
         cursor.execute("""INSERT INTO students(admission_number, name, grade, stream) VALUES (101, 'Rollings Majiwa', 9, 'N')""")
         connection.commit()
         connection.close()
@@ -29,10 +29,50 @@ class StudentManager:
                 cursor.execute("""INSERT INTO marks(student_id, student_mark, term, year) VALUES (23, 79, 'TWO', 2026 )""")
                 connection.commit()
                 connection.close()
+class StudentInf:
+    def __init__(self, student_id=None, admission_number="", name = "", grade = "10", stream = "N"):
+            self.student_id = student_id
+            self.admission_number = admission_number
+            self.name = name
+            self.grade = grade
+            self.stream = stream
+    def add_student(self):
+          connection = sqlite3.connect("student.db")
+          cursor = connection.cursor()
+          cursor.execute(f"""INSERT INTO students(admission_number, name, grade, stream) VALUES ('{self.admission_number}', '{self.name}', '{self.grade}', '{self.stream}')""")
+          connection.commit()
+          connection.close()
 
-StudentManager().create_table1()
-StudentManager().create_table2()
-StudentManager().create_table3()
-print("Done")
+def main():
+      while True:
+            print("\n___STUDENT MANAGEMENT___")
+            print("1. Register student")
+            print("2. View student")
+            print("3. Enter Marks")
+            print("4. Analyze performance")
+            print("5. Generate report")
+            print("6. Exit")
+
+            choice = input("Select an option:")
+            if choice == "1":
+                  admission_number = input("Enter student admission number:")
+                  name = input("Enter student name:")
+                  add_st = StudentInf(admission_number=admission_number, name=name)
+                  add_st.add_student()
+                  print("Student added succesfully")
+
+            else:
+                  print("Invalid choice. Try again")
+
+                  
+            
+            
+main()
+    
+
+# StudentManager().create_table1()
+# StudentManager().create_table2()
+# StudentManager().create_table3()
+# print("Done")
 
 
