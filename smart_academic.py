@@ -41,6 +41,15 @@ class StudentInf:
           cursor.execute(f"""INSERT INTO students(admission_number, name, grade, stream) VALUES ('{self.admission_number}', '{self.name}', '{self.grade}', '{self.stream}')""")
           connection.commit()
           connection.close()
+    def view_student(self):
+          connection = sqlite3.connect("student.db")
+          cursor = connection.cursor()
+          cursor.execute("""SELECT * FROM students""")
+          all_students = cursor.fetchall()
+
+          connection.commit()
+          connection.close()
+          return all_students
 
 def main():
       while True:
@@ -59,6 +68,11 @@ def main():
                   add_st = StudentInf(admission_number=admission_number, name=name)
                   add_st.add_student()
                   print("Student added succesfully")
+            elif choice == "2":
+                  viewed_students = StudentInf().view_student()
+
+                  for data in viewed_students:
+                        print(data)
 
             else:
                   print("Invalid choice. Try again")
