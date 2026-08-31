@@ -22,9 +22,17 @@ class StudentManager:
             cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Pre_Technical_studies')""")
             connection.commit()
             connection.close()
+    def create_table3(self):
+                connection = self.get_connection()
+                cursor = connection.cursor()
+                cursor.execute("""CREATE TABLE IF NOT EXISTS marks(subject_id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER,student_mark INTEGER NOT NULL, term TEXT NOT NULL, year INTEGER NOT NULL)""")
+                cursor.execute("""INSERT INTO marks(student_id, student_mark, term, year) VALUES (23, 79, 'TWO', 2026 )""")
+                connection.commit()
+                connection.close()
 
 StudentManager().create_table1()
 StudentManager().create_table2()
+StudentManager().create_table3()
 print("Done")
 
 
