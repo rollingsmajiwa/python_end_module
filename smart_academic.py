@@ -60,7 +60,7 @@ class StudentInf:
             connection.commit()
             connection.close()
 class StudentMarks:
-    def __init__(self, student_id, subject_id, student_mark, term = 3, year=2027):
+    def __init__(self, student_id, subject_id, student_mark, term = "Three", year=2027):
             self.student_id = student_id
             self.subject_id = subject_id
             self.student_mark = student_mark
@@ -98,9 +98,12 @@ def main():
                 print("Student added succesfully")
             elif choice == "2":
                 viewed_students = StudentInf().view_student()
+                if viewed_students:
 
-                for data in viewed_students:
+                    for data in viewed_students:
                         print(data)
+                else:
+                      print("Student list is empty!")
             
             elif choice == "3":
                 student_id = float(input("Enter student id:"))
