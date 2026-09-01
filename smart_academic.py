@@ -115,6 +115,9 @@ def main():
                   dlete_n = StudentInf(name=name)
                   dlete_n.delete_student()
                   print(dlete_n)
+            elif choice == "7":
+                  print("Thank you!")
+                  break
                 
 
             else:
