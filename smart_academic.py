@@ -52,6 +52,13 @@ class StudentInf:
           connection.commit()
           connection.close()
           return all_students
+    def delete_student(self):
+            connection = sqlite3.connect("student.db")
+            cursor = connection.cursor()
+            cursor.execute(f"""DELETE FROM students WHERE name = '{self.name}' """)
+    
+            connection.commit()
+            connection.close()
 class StudentMarks:
     def __init__(self, student_id, subject_id, student_mark, term = 3, year=2027):
             self.student_id = student_id
@@ -62,10 +69,11 @@ class StudentMarks:
     def add_marks(self):
           connection = sqlite3.connect("student.db")
           cursor = connection.cursor()
-          cursor.execute("""INSERT INTO marks(subject_id, student_id, student_mark, term, year)
-            VALUES (?, ?, ?, ?, ?)""", (self.subject_id, self.student_id, self.student_mark, self.term, self.year))
+          cursor.execute(f"""INSERT INTO marks(subject_id, student_id, student_mark, term, year)
+            VALUES ('{self.subject_id}', '{self.student_id}', '{self.student_mark}', '{self.term}', '{self.year}')""")
           connection.commit()
           connection.close()
+    
           
         
             
@@ -76,9 +84,10 @@ def main():
             print("1. Register student")
             print("2. View student")
             print("3. Enter Marks")
-            print("4. Analyze performance")
-            print("5. Generate report")
-            print("6. Exit")
+            print("4. Delete student")
+            print("5. Analyze performance")
+            print("6. Generate report")
+            print("7. Exit")
 
             choice = input("Select an option:")
             if choice == "1":
@@ -92,6 +101,7 @@ def main():
 
                 for data in viewed_students:
                         print(data)
+            
             elif choice == "3":
                 student_id = float(input("Enter student id:"))
                 subject_id = float(input("Enter subject id:"))
@@ -99,6 +109,13 @@ def main():
                 student_m = StudentMarks(student_id, subject_id, student_mark)
                 student_m.add_marks()
                 print("Marks added succesfully")
+
+            elif choice == "4":
+                  name = input("Enter the full name of the student you want to delete:")
+                  dlete_n = StudentInf(name=name)
+                  dlete_n.delete_student()
+                  print(dlete_n)
+                
 
             else:
                   print("Invalid choice. Try again")
