@@ -34,7 +34,8 @@ class StudentManager:
                 topic_3_marks INTEGER NOT NULL, topic_4_marks INTEGER NOT NULL, topic_5_marks INTEGER NOT NULL,
                 term TEXT NOT NULL, year INTEGER NOT NULL)""")
                 cursor.execute("""INSERT INTO marks(subject_id, student_id, total_marks, topic_1_marks,topic_2_marks, 
-                topic_3_marks, topic_4_marks, topic_5_marks, term, year) VALUES (1, 19, 85, 15, 20, 15, 10, 25, 'TWO', 2026 )""")
+                topic_3_marks, topic_4_marks, topic_5_marks, term, year) VALUES (1, 22, 85, 15, 20, 15, 10, 25, 'TWO', 2026 )""")
+                
                 
                 
                 connection.commit()
