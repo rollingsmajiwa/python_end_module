@@ -17,30 +17,28 @@ class StudentManager:
             connection = self.get_connection()
             cursor = connection.cursor()
             cursor.execute("""CREATE TABLE IF NOT EXISTS subjects(subject_id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                    subject_name TEXT NOT NULL)""")
+                    subject_name TEXT NOT NULL, topic_1 TEXT NOT NULL, topic_2 TEXT NOT NULL, topic_3 TEXT NOT NULL, topic_4 TEXT NOT NULL, topic_5 TEXT NOT NULL )""")
             
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Pre_Technical_studies')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Mathematics')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Integrated_science')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Creative arts')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Social_studies')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Agriculture')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('CRE')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('Kiswahili')""")
-            cursor.execute("""INSERT INTO subjects(subject_name) VALUES ('English')""")
+            
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Mathematics', 'Numbers', 'Algebra', 'Measurement', 'Geomentry', 'Data Handling and Probability')""")
+          
+           
             
             
             connection.commit()
             connection.close()
-#     def create_table3(self):
-#                 connection = self.get_connection()
-#                 cursor = connection.cursor()
-#                 cursor.execute("""CREATE TABLE IF NOT EXISTS marks(subject_id INTEGER, student_id INTEGER,student_mark INTEGER NOT NULL, 
-#                 term TEXT NOT NULL, year INTEGER NOT NULL)""")
-#                 cursor.execute("""INSERT INTO marks(subject_id, student_id, student_mark, term, year) VALUES (79, 19, 3, 'TWO', 2026 )""")
+    def create_table3(self):
+                connection = self.get_connection()
+                cursor = connection.cursor()
+                cursor.execute("""CREATE TABLE IF NOT EXISTS marks(subject_id INTEGER, student_id INTEGER, total_marks INTEGER NOT NULL, topic_1_marks INTEGER NOT NULL,topic_2_marks INTEGER NOT NULL, 
+                topic_3_marks INTEGER NOT NULL, topic_4_marks INTEGER NOT NULL, topic_5_marks INTEGER NOT NULL,
+                term TEXT NOT NULL, year INTEGER NOT NULL)""")
+                cursor.execute("""INSERT INTO marks(subject_id, student_id, total_marks, topic_1_marks,topic_2_marks, 
+                topic_3_marks, topic_4_marks, topic_5_marks, term, year) VALUES (1, 19, 85, 15, 20, 15, 10, 25, 'TWO', 2026 )""")
                 
-#                 connection.commit()
-#                 connection.close()
+                
+                connection.commit()
+                connection.close()
 # class StudentInf:
 #     def __init__(self, student_id=None, admission_number="", name = "", grade = "10", stream = "N"):
 #             self.student_id = student_id
@@ -142,7 +140,8 @@ class StudentManager:
             
 # main()
 
-StudentManager().create_table2()
+StudentManager().create_table3()
+
 
 
 
