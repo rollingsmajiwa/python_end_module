@@ -70,10 +70,10 @@ class StudentInf:
             connection.commit()
             connection.close()
 class StudentMarks:
-    def __init__(self, student_id, subject_id, total_marks, topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks, term = "TWO", year=2027):
+    def __init__(self, student_id, subject_id, topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks, term = "TWO", year=2027):
             self.student_id = student_id
             self.subject_id = subject_id
-            self.total_marks = total_marks
+            self.total_marks = (topic_1_marks + topic_2_marks + topic_3_marks + topic_4_marks + topic_5_marks)
             self.topic_1_marks = topic_1_marks
             self.topic_2_marks = topic_2_marks
             self.topic_3_marks = topic_3_marks
@@ -84,10 +84,14 @@ class StudentMarks:
     def add_marks(self):
           connection = sqlite3.connect("student.db")
           cursor = connection.cursor()
+          
+          
           cursor.execute(f"""INSERT INTO marks(subject_id, student_id, total_marks,topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks, term, year)
             VALUES ('{self.subject_id}', '{self.student_id}', '{self.total_marks}', '{self.topic_1_marks}', '{self.topic_2_marks}', '{self.topic_3_marks}', '{self.topic_4_marks}', '{self.topic_5_marks}', '{self.term}', '{self.year}')""")
+          
           connection.commit()
           connection.close()
+    
     
           
         
@@ -123,13 +127,13 @@ def main():
             elif choice == "3":
                 student_id = float(input("Enter student id:"))
                 subject_id = float(input("Enter subject id:"))
-                total_marks = float(input("Enter total marks:"))
+                
                 topic_1_marks = float(input("Enter marks scored in topic 1:"))
                 topic_2_marks = float(input("Enter marks scored in topic 2:"))
                 topic_3_marks = float(input("Enter marks scored in topic 3:"))
                 topic_4_marks = float(input("Enter marks scored in topic 4:"))
                 topic_5_marks = float(input("Enter marks scored in topic 5:"))
-                student_m = StudentMarks(student_id, subject_id, total_marks, topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks)
+                student_m = StudentMarks(student_id, subject_id, topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks)
                 student_m.add_marks()
                 print("Marks added succesfully")
 
@@ -139,6 +143,7 @@ def main():
                   dlete_n.delete_student()
                   print(dlete_n)
             elif choice == "7":
+                  
                   print("Thank you!")
                   break
                 
