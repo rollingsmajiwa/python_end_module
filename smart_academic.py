@@ -89,8 +89,26 @@ class StudentMarks:
           cursor.execute(f"""INSERT INTO marks(subject_id, student_id, total_marks,topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks, term, year)
             VALUES ('{self.subject_id}', '{self.student_id}', '{self.total_marks}', '{self.topic_1_marks}', '{self.topic_2_marks}', '{self.topic_3_marks}', '{self.topic_4_marks}', '{self.topic_5_marks}', '{self.term}', '{self.year}')""")
           
+          
           connection.commit()
           connection.close()
+class MarksAnalyzer:
+    def __init__(self, subject_id):
+            
+            self.subject_id = subject_id
+            
+           
+    def highest_marks(self):
+          connection = sqlite3.connect("student.db")
+          cursor = connection.cursor()
+          cursor.execute(f"""SELECT MAX(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
+          max_max = cursor.fetchone()
+
+          connection.commit()
+          connection.close()
+          return max_max
+    
+    
     
     
           
@@ -142,6 +160,12 @@ def main():
                   dlete_n = StudentInf(name=name)
                   dlete_n.delete_student()
                   print(dlete_n)
+
+            elif choice == "5":
+                  subject_id = int(input("Enter the subject id :"))
+                  analyz = MarksAnalyzer(subject_id=subject_id)
+                  highest = analyz.highest_marks()
+                  print("The highest marks scored is :", highest)
             elif choice == "7":
                   
                   print("Thank you!")
