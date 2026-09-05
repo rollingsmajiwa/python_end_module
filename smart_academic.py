@@ -92,21 +92,61 @@ class StudentMarks:
           
           connection.commit()
           connection.close()
-class MarksAnalyzer:
-    def __init__(self, subject_id):
-            
-            self.subject_id = subject_id
-            
-           
-    def highest_marks(self):
-          connection = sqlite3.connect("student.db")
-          cursor = connection.cursor()
-          cursor.execute(f"""SELECT MAX(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
-          max_max = cursor.fetchone()
 
-          connection.commit()
-          connection.close()
-          return max_max
+           
+    # def highest_marks(self):
+    #       connection = sqlite3.connect("student.db")
+    #       cursor = connection.cursor()
+    #       cursor.execute(f"""SELECT MAX(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
+    #       max_max = cursor.fetchone()
+
+    #       connection.commit()
+    #       connection.close()
+    #       return max_max
+    # def lowest_marks(self):
+    #           connection = sqlite3.connect("student.db")
+    #           cursor = connection.cursor()
+    #           cursor.execute(f"""SELECT MIN(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
+    #           min_max = cursor.fetchone()
+    
+    #           connection.commit()
+    #           connection.close()
+    #           return min_max
+class MarksAnalyzer:
+
+    def __init__(self, subject_id, student_id):
+          self.student_id = student_id
+          self.subject_id = subject_id
+          
+    def all_marks(self):
+                  connection = sqlite3.connect("student.db")
+                  cursor = connection.cursor()
+                  cursor.execute(f"""SELECT topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks,topic_5_marks FROM marks WHERE student_id = '{self.student_id}'""")
+                  get_marks = cursor.fetchall()
+                
+                  connection.commit()
+                  connection.close()
+                  return get_marks
+
+    def get_names(self):
+                      connection = sqlite3.connect("student.db")
+                      cursor = connection.cursor()
+                      cursor.execute(f"""SELECT topic_1, topic_2, topic_3, topic_4,topic_5 FROM subjects WHERE subject_id = '{self.subject_id}'""")
+                      get_name = cursor.fetchone()
+                    
+                      connection.commit()
+                      connection.close()
+                      return get_name
+    def get_student_names(self):
+                          connection = sqlite3.connect("student.db")
+                          cursor = connection.cursor()
+                          cursor.execute(f"""SELECT name FROM students WHERE student_id = '{self.student_id}'""")
+                          get_std_name = cursor.fetchone()
+                        
+                          connection.commit()
+                          connection.close()
+                          return get_std_name[0]
+        
     
     
     
@@ -162,10 +202,44 @@ def main():
                   print(dlete_n)
 
             elif choice == "5":
-                  subject_id = int(input("Enter the subject id :"))
-                  analyz = MarksAnalyzer(subject_id=subject_id)
-                  highest = analyz.highest_marks()
-                  print("The highest marks scored is :", highest)
+                print("\n ___MARKS ANALYSIS PER TOPIC___")
+                
+                student_id = float(input("Enter the student id :"))
+                subject_id = float(input("Enter subject id:"))
+    
+                analyz = MarksAnalyzer(subject_id,student_id)
+                every_marks = analyz.all_marks()
+
+               
+                if every_marks:
+                    
+                        
+                    for student_data in every_marks:
+                        topic_mark = student_data[:6]
+                        analyzed_marks = topic_mark
+                        tpic_names = analyz.get_names()
+                        std_name = analyz.get_student_names()
+                        
+                        print(std_name)
+
+                        for tpic_name, mark in zip(tpic_names, analyzed_marks):
+                            if mark >= 20:
+                                comment = "EE"
+                            elif mark >= 15:
+                                comment = "ME"
+                            elif mark >= 10:
+                               comment = "AE"
+                            elif mark >= 5:
+                                comment = "BE"
+                            else:
+                              comment = "BE"
+
+                           
+                            
+                            print(f"{tpic_name} - {mark}-{comment}")
+                else:
+                      print("No data found")
+                  
             elif choice == "7":
                   
                   print("Thank you!")
