@@ -49,10 +49,10 @@ class StudentInf:
             self.name = name
             self.grade = grade
             self.stream = stream
-    def add_student(self):
+    def add_student(self, adm, name):
           connection = sqlite3.connect("student.db")
           cursor = connection.cursor()
-          cursor.execute(f"""INSERT INTO students(admission_number, name, grade, stream) VALUES ('{self.admission_number}', '{self.name}', '{self.grade}', '{self.stream}')""")
+          cursor.execute(f"""INSERT INTO students(admission_number, name, grade, stream) VALUES ('{adm}', '{name}', '{self.grade}', '{self.stream}')""")
           connection.commit()
           connection.close()
     def view_student(self):
@@ -64,10 +64,10 @@ class StudentInf:
           connection.commit()
           connection.close()
           return all_students
-    def delete_student(self):
+    def delete_student(self, name):
             connection = sqlite3.connect("student.db")
             cursor = connection.cursor()
-            cursor.execute(f"""DELETE FROM students WHERE name = '{self.name}' """)
+            cursor.execute(f"""DELETE FROM students WHERE name = '{name}' """)
     
             connection.commit()
             connection.close()
@@ -138,106 +138,130 @@ class MarksAnalyzer:
     
           
         
-            
+#TKINTER           
 
-def main():
-      while True:
-            print("\n___STUDENT MANAGEMENT___")
-            print("1. Register student")
-            print("2. View student")
-            print("3. Enter Marks")
-            print("4. Delete student")
-            print("5. Analyze performance")
-            print("6. Generate report")
-            print("7. Exit")
+root = tk.Tk()
+root.title("SMART ACADEMIC SYSTEM")
+root.geometry("450x600")
 
-            choice = input("Select an option:")
-            if choice == "1":
-                admission_number = input("Enter student admission number:")
-                name = input("Enter student name:")
-                add_st = StudentInf(admission_number=admission_number, name=name)
-                add_st.add_student()
-                print("Student added succesfully")
-            elif choice == "2":
-                viewed_students = StudentInf().view_student()
-                if viewed_students:
+#FEATURE FUNCTIONS
 
-                    for data in viewed_students:
-                        print(data)
-                else:
-                      print("Student list is empty!")
-            
-            elif choice == "3":
-                student_id = float(input("Enter student id:"))
-                subject_id = float(input("Enter subject id:"))
-                
-                topic_1_marks = float(input("Enter marks scored in topic 1:"))
-                topic_2_marks = float(input("Enter marks scored in topic 2:"))
-                topic_3_marks = float(input("Enter marks scored in topic 3:"))
-                topic_4_marks = float(input("Enter marks scored in topic 4:"))
-                topic_5_marks = float(input("Enter marks scored in topic 5:"))
-                student_m = StudentMarks(student_id, subject_id, topic_1_marks, topic_2_marks, topic_3_marks, topic_4_marks, topic_5_marks)
-                student_m.add_marks()
-                print("Marks added succesfully")
+def open_register_window():
+    win = tk.Toplevel(root)
+    win.title("Register Student")
+    win.geometry("300x200")
 
-            elif choice == "4":
-                  name = input("Enter the full name of the student you want to delete:")
-                  dlete_n = StudentInf(name=name)
-                  dlete_n.delete_student()
-                  print(dlete_n)
+    tk.Label(win, text="Admission Number").pack(pady=5)
+    adm_entry = tk.Entry(win)
+    adm_entry.pack()
 
-            elif choice == "5":
-                print("\n ___MARKS ANALYSIS PER TOPIC___")
-                
-                student_id = float(input("Enter the student id :"))
-                subject_id = float(input("Enter subject id:"))
-    
-                analyz = MarksAnalyzer(subject_id,student_id)
-                every_marks = analyz.all_marks()
+    tk.Label(win, text="Student Name").pack(pady=5)
+    name_entry = tk.Entry(win)
+    name_entry.pack()
 
-               
-                if every_marks:
-                    
-                        
-                    for student_data in every_marks:
-                        topic_mark = student_data[:6]
-                        analyzed_marks = topic_mark
-                        tpic_names = analyz.get_names()
-                        std_name = analyz.get_student_names()
-                        
-                        print(std_name)
+    def submit():
+        adm = adm_entry.get()
+        name = name_entry.get()
+        if adm and name:
+            StudentInf().add_student(adm, name)
+            messagebox.showinfo("Success", "Student registered successfully!")
+            win.destroy()
+        else:
+            messagebox.showerror("Error", "Please fill all fields.")
 
-                        for tpic_name, mark in zip(tpic_names, analyzed_marks):
-                            if mark >= 20:
-                                comment = "Exceeding Expectation"
-                            elif mark >= 15:
-                                comment = "Meeting Expectation"
-                            elif mark >= 10:
-                               comment = "Approaching Expectation"
-                            elif mark >= 5:
-                                comment = "Below Expectation"
-                            else:
-                              comment = "Below Expectation"
+    tk.Button(win, text="Submit", command=submit).pack(pady=10)
 
-                           
-                            
-                            print(f"{tpic_name} - {mark}-{comment}")
-                else:
-                      print("No data found")
-                  
-            elif choice == "7":
-                  
-                  print("Thank you!")
-                  break
-                
 
-            else:
-                  print("Invalid choice. Try again")
+def view_all_students():
+    students = StudentInf().view_student()
+    if students:
+        display_text = "\n".join([f"ID: {s[0]} | Adm: {s[1]} | Name: {s[2]}" for s in students])
+        messagebox.showinfo("Registered Students", display_text)
+    else:
+        messagebox.showinfo("Registered Students", "No students found.")
 
-                  
-            
-            
-main()
+
+def open_delete_window():
+    win = tk.Toplevel(root)
+    win.title("Delete Student")
+    win.geometry("300x150")
+
+    tk.Label(win, text="Enter Student Name to Delete").pack(pady=10)
+    name_entry = tk.Entry(win)
+    name_entry.pack()
+
+    def confirm_delete():
+        name = name_entry.get()
+        if name:
+            StudentInf().delete_student(name)
+            messagebox.showinfo("Success", f"Deleted student: {name}")
+            win.destroy()
+
+    tk.Button(win, text="Delete", command=confirm_delete).pack(pady=10)
+
+
+def analyze():
+    try:
+        student_id = float(student_entry.get())
+        subject_id = float(subject_entry.get())
+    except ValueError:
+        output_label.config(text="Please enter valid numeric IDs.")
+        return
+
+    analyz = MarksAnalyzer(subject_id, student_id)
+    every_marks = analyz.all_marks()
+
+    if every_marks:
+        std_name = analyz.get_student_names()
+        tpic_names = analyz.get_names()
+
+        results_text = f"Student Name: {std_name}\n" + "-" * 30 + "\n"
+
+        for student_data in every_marks:
+            analyzed_marks = student_data[:5]
+
+            if tpic_names:
+                for tpic_name, mark in zip(tpic_names, analyzed_marks):
+                    if mark >= 20:
+                        comment = "Exceeding Expectation"
+                    elif mark >= 15:
+                        comment = "Meeting Expectation"
+                    elif mark >= 10:
+                        comment = "Approaching Expectation"
+                    else:
+                        comment = "Below Expectation"
+
+                    results_text += f"{tpic_name} - {mark} - {comment}\n"
+
+        output_label.config(text=results_text)
+    else:
+        output_label.config(text="No data found for this Student/Subject ID.")
+
+
+#BUTTONS & INPUTS
+
+tk.Label(root, text="STUDENT MANAGEMENT", font=("Arial", 12, "bold")).pack(pady=10)
+
+tk.Button(root, text="Register Student", width=25, command=open_register_window).pack(pady=4)
+tk.Button(root, text="View All Students", width=25, command=view_all_students).pack(pady=4)
+tk.Button(root, text="Delete Student", width=25, command=open_delete_window).pack(pady=4)
+
+tk.Label(root, text="--- PERFORMANCE ANALYSIS ---", font=("Arial", 10, "bold")).pack(pady=10)
+
+tk.Label(root, text="Enter Student ID").pack()
+student_entry = tk.Entry(root)
+student_entry.pack(pady=2)
+
+tk.Label(root, text="Enter Subject ID").pack()
+subject_entry = tk.Entry(root)
+subject_entry.pack(pady=2)
+
+tk.Button(root, text="Analyze Marks", width=25, command=analyze).pack(pady=10)
+
+output_label = tk.Label(root, text="", justify="left")
+output_label.pack(pady=10)
+
+root.mainloop()
 
 
 
