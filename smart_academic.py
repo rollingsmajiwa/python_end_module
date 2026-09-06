@@ -1,4 +1,6 @@
 import sqlite3
+import tkinter as tk
+from tkinter import messagebox
 
 class StudentManager:
     def __init__(self, db_name = "student.db"):
@@ -94,24 +96,7 @@ class StudentMarks:
           connection.close()
 
            
-    # def highest_marks(self):
-    #       connection = sqlite3.connect("student.db")
-    #       cursor = connection.cursor()
-    #       cursor.execute(f"""SELECT MAX(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
-    #       max_max = cursor.fetchone()
-
-    #       connection.commit()
-    #       connection.close()
-    #       return max_max
-    # def lowest_marks(self):
-    #           connection = sqlite3.connect("student.db")
-    #           cursor = connection.cursor()
-    #           cursor.execute(f"""SELECT MIN(topic_5_marks) FROM marks WHERE subject_id = '{self.subject_id}'""")
-    #           min_max = cursor.fetchone()
-    
-    #           connection.commit()
-    #           connection.close()
-    #           return min_max
+   
 class MarksAnalyzer:
 
     def __init__(self, subject_id, student_id):
@@ -224,15 +209,15 @@ def main():
 
                         for tpic_name, mark in zip(tpic_names, analyzed_marks):
                             if mark >= 20:
-                                comment = "EE"
+                                comment = "Exceeding Expectation"
                             elif mark >= 15:
-                                comment = "ME"
+                                comment = "Meeting Expectation"
                             elif mark >= 10:
-                               comment = "AE"
+                               comment = "Approaching Expectation"
                             elif mark >= 5:
-                                comment = "BE"
+                                comment = "Below Expectation"
                             else:
-                              comment = "BE"
+                              comment = "Below Expectation"
 
                            
                             
