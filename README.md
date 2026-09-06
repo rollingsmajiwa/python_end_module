@@ -74,7 +74,7 @@ pip install pandas openpyxl
 python smart_academic.py
 ```
 ## Screenshots
-
+![SmartAcademic System](assets/schoolmng.jpg)
 
 ## Author
 Rollings Majiwa
@@ -84,4 +84,4 @@ Rollings Majiwa
 **Email:** [rollingsmajiwa@gmail.com](rollingsmajiwa@gmail.com)
 
 ## Get started
-Interested in the code behind Smart Academic System? You can reach me directly via my profile or open an issue for collaboration. Visit my Github profile
+Interested in the code behind Smart Academic System? You can reach me directly via my profile or open an issue for collaboration. [Visit my Github profile](https://github.com/rollingsmajiwa)
