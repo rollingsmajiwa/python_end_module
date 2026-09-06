@@ -222,7 +222,7 @@ def analyze():
             analyzed_marks = student_data[:5]
 
             if tpic_names:
-                for tpic_name, mark in zip(tpic_names, analyzed_marks):
+                for i, (tpic_name, mark) in enumerate(zip(tpic_names, analyzed_marks)):
                     if mark >= 20:
                         comment = "Exceeding Expectation"
                     elif mark >= 15:
@@ -233,7 +233,7 @@ def analyze():
                         comment = "Below Expectation"
                     student_report.append(
                           {
-                                "Student Name" : std_name,
+                                "Student Name" : std_name if i ==0 else "",
                                 "Topic" : tpic_name,
                                 "Mark" : mark,
                                 "Performance" : comment
