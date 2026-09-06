@@ -1,6 +1,7 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+import pandas as pd
 
 class StudentManager:
     def __init__(self, db_name = "student.db"):
@@ -210,12 +211,12 @@ def analyze():
 
     analyz = MarksAnalyzer(subject_id, student_id)
     every_marks = analyz.all_marks()
-
+    student_report = []
     if every_marks:
         std_name = analyz.get_student_names()
         tpic_names = analyz.get_names()
 
-        results_text = f"Student Name: {std_name}\n" + "-" * 30 + "\n"
+        results_text = f"Student Name: {std_name}\n"
 
         for student_data in every_marks:
             analyzed_marks = student_data[:5]
@@ -230,8 +231,20 @@ def analyze():
                         comment = "Approaching Expectation"
                     else:
                         comment = "Below Expectation"
-
+                    student_report.append(
+                          {
+                                "Student Name" : std_name,
+                                "Topic" : tpic_name,
+                                "Mark" : mark,
+                                "Performance" : comment
+                          }
+                    )
                     results_text += f"{tpic_name} - {mark} - {comment}\n"
+        df = pd.DataFrame(student_report)
+        myFile = f"Student_analysis_{student_id}.xlsx"
+        df.to_excel(myFile)
+        messagebox.showinfo("Success", "Report exported successfully")
+        
 
         output_label.config(text=results_text)
     else:
@@ -260,6 +273,8 @@ tk.Button(root, text="Analyze Marks", width=25, command=analyze).pack(pady=10)
 
 output_label = tk.Label(root, text="", justify="left")
 output_label.pack(pady=10)
+
+tk.Button(root, text="Export student report to excel", width=30, command=analyze).pack(pady=5)
 
 root.mainloop()
 
