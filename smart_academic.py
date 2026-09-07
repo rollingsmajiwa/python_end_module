@@ -176,6 +176,21 @@ def add_student_marks():
       win = tk.Toplevel(root)
       win.title("Enter Marks")
       win.geometry("300x550")
+
+      tk.Label(win, text="Enter student ID").pack(pady=3)
+      student_entry = tk.Entry(win)
+      student_entry.pack(pady=3)
+
+      tk.Label(win, text="Enter subject ID").pack(pady=3)
+      subject_entry = tk.Entry(win)
+      subject_entry.pack(pady=3)
+            
+            
+
+        
+            
+
+      
     
       
 
