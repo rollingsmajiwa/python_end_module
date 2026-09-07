@@ -237,14 +237,14 @@ def add_student_marks():
                   topic4 = float(t4)
                   topic5 = float(t5)
             except ValueError:
-                  messagebox.showinfo("Error", "Please fill all fields")
+                    messagebox.showinfo("Error", "Please fill all fields")
+                    return
                   
-                  StudentMarks().add_marks(student_id, subject_id, topic1, topic2, topic3, topic4, topic5)
-                  messagebox.showinfo("Success", "Marks added successfully")
-                  win.destroy()
-            
+            StudentMarks(student_id, subject_id, topic1, topic2, topic3, topic4, topic5).add_marks()
+            messagebox.showinfo("Success", "Marks added successfully")
+            win.destroy()   
 
-            tk.Button(win, text="Add Student", command=confirm_add).pack(pady=15)
+      tk.Button(win, text="Add Student", command=confirm_add).pack(pady=15)
                   
 
 
