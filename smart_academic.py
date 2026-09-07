@@ -172,6 +172,78 @@ def open_register_window():
 
     tk.Button(win, text="Submit", command=submit).pack(pady=10)
 
+def add_student_marks():
+      win = tk.Toplevel(root)
+      win.title("Enter Marks")
+      win.geometry("300x550")
+    
+      
+
+      tk.Label(win, text="Enter marks scored in topi 1").pack(pady=3)
+      topic1_entry = tk.Entry(win)
+      topic1_entry.pack(pady=3)
+
+      tk.Label(win, text="Enter marks scored in topic 2").pack(pady=3)
+      topic2_entry = tk.Entry(win)
+      topic2_entry.pack(pady=3)
+
+      tk.Label(win, text="Enter marks scored in topic 3").pack(pady=3)
+      topic3_entry = tk.Entry(win)
+      topic3_entry.pack(pady=3)
+
+      tk.Label(win, text="Enter marks scored in topic 4").pack(pady=3)
+      topic4_entry = tk.Entry(win)
+      topic4_entry.pack(pady=3)
+
+      tk.Label(win, text="Enter marks scored in topic 5").pack(pady=3)
+      topic5_entry = tk.Entry(win)
+      topic5_entry.pack(pady=3)
+
+      def confirm_add():
+            std_id = student_id = student_entry.get().strip()
+            sub_id = subject_id = subject_entry.get().strip()
+
+            t1 = topic1= topic1_entry.get().strip()
+            t2 = topic2 = topic2_entry.get().strip()
+            t3 = topic3 = topic3_entry.get().strip()
+            t4 = topic4 = topic4_entry.get().strip()
+            t5 = topic5 = topic5_entry.get().strip()
+
+            if not(std_id and sub_id and t1 and t2 and t3 and t4 and t5):
+                  messagebox.showinfo("Error", "Please fill all fields")
+                  return
+
+            try:
+                  student_id = float(std_id)
+                  subject_id = float(sub_id)
+                  topic1 = float(t1)
+                  topic2 = float(t2)
+                  topic3 = float(t3)
+                  topic4 = float(t4)
+                  topic5 = float(t5)
+            except ValueError:
+                  messagebox.showinfo("Error", "Please fill all fields")
+                  
+                  StudentMarks().add_marks(student_id, subject_id, topic1, topic2, topic3, topic4, topic5)
+                  messagebox.showinfo("Success", "Marks added successfully")
+                  win.destroy()
+            
+
+            tk.Button(win, text="Add Student", command=confirm_add).pack(pady=15)
+                  
+
+
+            
+            
+    
+            
+
+
+    
+
+
+      
+
 
 def view_all_students():
     students = StudentInf().view_student()
@@ -258,8 +330,9 @@ tk.Label(root, text="STUDENT MANAGEMENT", font=("Arial", 12, "bold")).pack(pady=
 tk.Button(root, text="Register Student", width=25, command=open_register_window).pack(pady=4)
 tk.Button(root, text="View All Students", width=25, command=view_all_students).pack(pady=4)
 tk.Button(root, text="Delete Student", width=25, command=open_delete_window).pack(pady=4)
+tk.Button(root, text="Add marks", width=25, command=add_student_marks).pack(pady=4)
 
-tk.Label(root, text="--- PERFORMANCE ANALYSIS ---", font=("Arial", 10, "bold")).pack(pady=10)
+tk.Label(root, text="PERFORMANCE ANALYSIS", font=("Arial", 10, "bold")).pack(pady=10)
 
 tk.Label(root, text="Enter Student ID").pack()
 student_entry = tk.Entry(root)
@@ -274,7 +347,7 @@ tk.Button(root, text="Analyze Marks", width=25, command=analyze).pack(pady=10)
 output_label = tk.Label(root, text="", justify="left")
 output_label.pack(pady=10)
 
-tk.Button(root, text="Export student report to excel", width=30, command=analyze).pack(pady=5)
+
 
 root.mainloop()
 
