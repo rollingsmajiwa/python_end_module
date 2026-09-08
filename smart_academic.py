@@ -288,7 +288,7 @@ def view_all_students():
 def view_all_subjects():
     subject = StudentInf().view_subjects()
     if subject:
-          display_subject = "\n".join([f"ID: {s[0]} | Learning Area: {s[1]} | sub-strand 1: {s[2]} | sub-strand 2: {s[3]} | sub-strand 3: {s[4]} | sub-strand 4: {s[5]} | sub-strand 5: {s[6]}" for s in subject])
+          display_subject = "\n".join([f"ID: {s[0]} | Learning Area: {s[1]} | strand 1: {s[2]} | strand 2: {s[3]} | strand 3: {s[4]} | strand 4: {s[5]} | strand 5: {s[6]}" for s in subject])
           messagebox.showinfo("Learning Areas", display_subject)
     else:
           messagebox.showinfo("Learning Areas", "No Learning Areas Found" )
