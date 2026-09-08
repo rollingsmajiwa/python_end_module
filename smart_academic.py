@@ -65,6 +65,23 @@ class StudentInf:
           connection.commit()
           connection.close()
           return all_students
+    def view_subjects(self):
+          connection = sqlite3.connect("student.db")
+          cursor = connection.cursor()
+          cursor.execute("""SELECT * FROM subjects""")
+          all_subjects = cursor.fetchall()
+
+          connection.commit()
+          connection.close()
+          return all_subjects
+                              
+                              
+                    
+                    
+                    
+          
+                    
+          
     def delete_student(self, name):
             connection = sqlite3.connect("student.db")
             cursor = connection.cursor()
@@ -268,6 +285,14 @@ def view_all_students():
     else:
         messagebox.showinfo("Registered Students", "No students found.")
 
+def view_all_subjects():
+    subject = StudentInf().view_subjects()
+    if subject:
+          display_subject = "\n".join([f"ID: {s[0]} | Learning Area: {s[1]} | sub-strand 1: {s[2]} | sub-strand 2: {s[3]} | sub-strand 3: {s[4]} | sub-strand 4: {s[5]} | sub-strand 5: {s[6]}" for s in subject])
+          messagebox.showinfo("Learning Areas", display_subject)
+    else:
+          messagebox.showinfo("Learning Areas", "No Learning Areas Found" )
+
 
 def open_delete_window():
     win = tk.Toplevel(root)
@@ -345,6 +370,7 @@ tk.Label(root, text="STUDENT MANAGEMENT", font=("Arial", 12, "bold")).pack(pady=
 tk.Button(root, text="Register Student", width=25, command=open_register_window).pack(pady=4)
 tk.Button(root, text="View All Students", width=25, command=view_all_students).pack(pady=4)
 tk.Button(root, text="Delete Student", width=25, command=open_delete_window).pack(pady=4)
+tk.Button(root, text="View All Learning Areas", width=25, command=view_all_subjects).pack(pady=4)
 tk.Button(root, text="Add marks", width=25, command=add_student_marks).pack(pady=4)
 
 tk.Label(root, text="PERFORMANCE ANALYSIS", font=("Arial", 10, "bold")).pack(pady=10)
