@@ -341,11 +341,11 @@ def analyze():
 
             if tpic_names:
                 for i, (tpic_name, mark) in enumerate(zip(tpic_names, analyzed_marks)):
-                    if mark >= 20:
+                    if mark >= 80:
                         comment = "Exceeding Expectation"
-                    elif mark >= 15:
+                    elif mark >= 50:
                         comment = "Meeting Expectation"
-                    elif mark >= 10:
+                    elif mark >= 30:
                         comment = "Approaching Expectation"
                     else:
                         comment = "Below Expectation"
