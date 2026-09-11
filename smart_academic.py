@@ -24,6 +24,12 @@ class StudentManager:
             
             
             cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Mathematics', 'Numbers', 'Algebra', 'Measurement', 'Geomentry', 'Data Handling and Probability')""")
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('English', 'Listening and Speaking', 'Reading', 'Grammar and Language Pattern', 'Writing', 'Literature')""")
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Kiswahili', 'Kusikiliza na kuzungumza', 'Kusoma', 'Kuandika', 'Sarufi na Matumizi ya Lugha', 'Fasihi')""")
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Integrated Science', 'Specific Investigation', 'Living Things and Environment', 'Matter and Energy', 'Earth and Space', 'tests')""")
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Pretechnical Studies', 'Safety and Tools', 'Technical Drawing', 'Material and Production', 'Electricity and Electronics', 'Computer Studies and Digital Literacy')""")
+            cursor.execute("""INSERT INTO subjects(subject_name,topic_1, topic_2, topic_3, topic_4, topic_5) VALUES ('Agriculture', 'Soil and Water Management', 'Crop and Animal Production', 'Food and Nutrition', 'Consumer Education', 'Apparel')""")
+            
           
            
             
