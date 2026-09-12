@@ -267,7 +267,7 @@ def add_student_marks():
             messagebox.showinfo("Success", "Marks added successfully")
             win.destroy()   
 
-      tk.Button(win, text="Add Student", command=confirm_add).pack(pady=15)
+      tk.Button(win, text="Add Student Marks", command=confirm_add).pack(pady=15)
                   
 
 
@@ -371,7 +371,7 @@ def analyze():
 
 #BUTTONS & INPUTS
 
-tk.Label(root, text="STUDENT MANAGEMENT", font=("Arial", 12, "bold")).pack(pady=10)
+tk.Label(root, text="STUDENT MANAGEMENT", font=("Arial", 16, "bold"), background=("lightblue")).pack(pady=10)
 
 tk.Button(root, text="Register Student", width=25, command=open_register_window).pack(pady=4)
 tk.Button(root, text="View All Students", width=25, command=view_all_students).pack(pady=4)
@@ -379,7 +379,7 @@ tk.Button(root, text="Delete Student", width=25, command=open_delete_window).pac
 tk.Button(root, text="View All Learning Areas", width=25, command=view_all_subjects).pack(pady=4)
 tk.Button(root, text="Add marks", width=25, command=add_student_marks).pack(pady=4)
 
-tk.Label(root, text="PERFORMANCE ANALYSIS", font=("Arial", 10, "bold")).pack(pady=10)
+tk.Label(root, text="PERFORMANCE ANALYSIS", font=("Arial", 14, "bold"), background=("lightblue"), textvariable=("red")).pack(pady=10)
 
 tk.Label(root, text="Enter Student ID").pack()
 student_entry = tk.Entry(root)
